@@ -3,9 +3,13 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { CiMenuFries } from 'react-icons/ci'
+import { links } from '@/data/links'
+import { usePathname } from 'next/navigation'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  const pathName = usePathname()
 
   function toggleMenu() {
     setIsMenuOpen((prev) => !prev)
@@ -25,38 +29,18 @@ const Header = () => {
             className={`absolute top-[56px] left-0 w-full bg-white sm:flex sm:static sm:w-auto sm:bg-transparent sm:flex-row sm:items-center transition-all duration-300 ease-in-out
               ${isMenuOpen ? 'flex flex-col items-center' : 'hidden'}`}
           >
-            <li>
-              <Link
-                className="block py-4 px-5 w-screen sm:w-full text-center hover:bg-blue-950 hover:text-white transition-all"
-                href="/"
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="block py-4 px-5 w-screen sm:w-full text-center hover:bg-blue-950 hover:text-white transition-all"
-                href="/shop"
-              >
-                Shop
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="block py-4 px-5 w-screen sm:w-full text-center hover:bg-blue-950 hover:text-white transition-all"
-                href="/about"
-              >
-                About
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="block py-4 px-5 w-screen sm:w-full text-center hover:bg-blue-950 hover:text-white transition-all"
-                href="/contact"
-              >
-                Contact
-              </Link>
-            </li>
+            {links.map((link) => (
+              <li key={link.name}>
+                <Link
+                  className={`block py-4 px-5 w-screen sm:w-full text-center hover:bg-blue-700 hover:text-white transition-all${
+                    pathName === link.path ? ' bg-blue-950 text-white' : ''
+                  }`}
+                  href={link.path}
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))}
           </ul>
 
           <CiMenuFries
