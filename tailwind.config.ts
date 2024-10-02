@@ -12,6 +12,9 @@ const config: Config = {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
       },
+      height: {
+        hero: '75vh',
+      },
     },
   },
   plugins: [],
